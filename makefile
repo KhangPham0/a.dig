@@ -31,6 +31,7 @@ dictobj := $(objdir)/sps_dict.o
 all: $(correlappname) $(gainmatchapp) $(calibrateapp)
 
 $(correlappname): $(dictobj) $(objects)
+	mkdir -p $(bindir)
 	$(CXX) -o $@ $^ $(LDFLAGS)
 	cp $(srcdir)/*.pcm $(bindir)
 
@@ -47,6 +48,7 @@ $(calibrateobj): $(calibratesrc)
 	$(CXX) $(CXXFLAGS) $(CPPFLAGS) -o $@ -c $^
 
 $(dictobj): $(dict)
+	mkdir -p $(objdir)
 	$(CXX) $(CXXFLAGS) $(CPPFLAGS) -o $@ -c $^
 	$(CXX) $(CXXFLAGS) $@ -shared -o $(dictlib).so $(LDFLAGS)
 
